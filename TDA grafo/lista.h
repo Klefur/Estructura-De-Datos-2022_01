@@ -22,3 +22,4 @@ int valor_pos(Lista *l, int pos);
 int eliminar_pos(Lista *l, int pos);
 int eliminar_inicio(Lista *l);
 int eliminar_final(Lista *l);
+void imprimir_lista(Lista *l);

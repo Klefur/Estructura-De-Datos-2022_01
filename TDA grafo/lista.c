@@ -2,8 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-Lista *crear_lista()
-{
+Lista *crear_lista(){
     Lista *l;
     l = (Lista*)malloc(sizeof(Lista));
     l -> inicio = NULL;
@@ -11,8 +10,7 @@ Lista *crear_lista()
     return l;
 }
 
-Nodol *crear_nodo(int valor)
-{
+Nodol *crear_nodo(int valor){
     Nodol *n;
     n = (Nodol*)malloc(sizeof(Nodol));
     n -> valor = valor;
@@ -20,44 +18,35 @@ Nodol *crear_nodo(int valor)
     return n;
 }
 
-int isEmptyL(Lista *l)
-{
-    if(l -> inicio == NULL)
-    {
+int isEmptyL(Lista *l){
+    if(l -> inicio == NULL){
         return 1;
     }
     return 0;
 }
 
-void insertar_inicio(Lista *l, int valor)
-{
+void insertar_inicio(Lista *l, int valor){
     Nodol *n;
     n = crear_nodo(valor);
-    if(isEmptyL(l) == 1)
-    {
+    if(isEmptyL(l) == 1){
         l -> inicio = n;
     }
-    else
-    {
+    else{
         n -> next = l -> inicio;
         l -> inicio = n;
     }
     l -> largo += 1;
 }
 
-void insertar_final(Lista *l, int valor)
-{
+void insertar_final(Lista *l, int valor){
     Nodol *n;
     n = crear_nodo(valor);
-    if(isEmptyL(l) == 1)
-    {
+    if(isEmptyL(l) == 1){
         l -> inicio = n;
     }
-    else
-    {
+    else{
         Nodol *aux = l -> inicio;
-        while(aux -> next != NULL)
-        {
+        while(aux -> next != NULL){
             aux = aux -> next;
         }
         aux -> next = n;
@@ -65,33 +54,26 @@ void insertar_final(Lista *l, int valor)
     l -> largo += 1;
 }
 
-void insertar_pos(Lista *l, int pos, int valor)
-{
+void insertar_pos(Lista *l, int pos, int valor){
     Nodol *n, *aux1, *aux2;
     n = crear_nodo(valor);
-    if(isEmptyL(l) == 1)
-    {
+    if(isEmptyL(l) == 1){
         l -> inicio = n;
         l -> largo += 1;
     }
-    else
-    {
-        
-        if(pos > l -> largo)
-        {
+    else{
+        if(pos > l -> largo){
             printf("Posicion no valida");
         }
-        else if(pos == 0)
-        {
+        else if(pos == 0){
             insertar_inicio(l, valor);
             l -> largo += 1;
         }
-        else
-        {
+        else{
             aux1 = l -> inicio;
             aux2 = l -> inicio -> next;
             for(int i = 1; i < pos; i++)
-            {
+        {
                 aux1 = aux1 -> next;
                 aux2 = aux2 -> next;
             }
@@ -102,42 +84,34 @@ void insertar_pos(Lista *l, int pos, int valor)
     }
 }
 
-int valor_inicial(Lista *l)
-{
-    int *inicial = (int*)malloc(sizeof(int) * 2);
+int valor_inicial(Lista *l){
+    int inicial;
     inicial = l -> inicio -> valor;
     return inicial;
 }
 
-int valor_final(Lista *l)
-{    
-    int *final = (int*)malloc(sizeof(int) * 2);
+int valor_final(Lista *l){    
+    int final;
     Nodol *aux = l -> inicio;
-    while(aux -> next != NULL)
-    {
+    while(aux -> next != NULL){
         aux = aux -> next;
     }
     final = aux -> valor;
     return final;
 }
 
-int valor_pos(Lista *l, int pos)
-{
+int valor_pos(Lista *l, int pos){
     int posi;
     Nodol *aux;
-    if(pos > l -> largo)
-    {
+    if(pos > l -> largo){
         posi = -1;
     }
-    else if(pos == 0)
-    {
+    else if(pos == 0){
         posi = valor_inicial(l);
     }
-    else
-    {
+    else{
         aux = l -> inicio;
-        for(int i = 1; i <= pos; i++)
-        {
+        for(int i = 1; i <= pos; i++){
             aux = aux -> next;
         }
         posi = aux -> valor;    
@@ -145,17 +119,14 @@ int valor_pos(Lista *l, int pos)
     return posi;
 }
 
-int eliminar_inicio(Lista *l)
-{
+int eliminar_inicio(Lista *l){
     int inicio;
-    if(isEmptyL(l) == 1)
-    {
+    if(isEmptyL(l) == 1){
         printf("lista vacia");
         inicio = -1;
         return inicio;
     }
-    else
-    {
+    else{
         Nodol *aux = l -> inicio;
         l -> inicio = aux -> next;
         inicio = aux -> valor;
@@ -164,21 +135,17 @@ int eliminar_inicio(Lista *l)
     }
 }
 
-int eliminar_final(Lista *l)
-{
+int eliminar_final(Lista *l){
     int final;
-    if(isEmptyL(l) == 1)
-    {
+    if(isEmptyL(l) == 1){
         printf("lista vacia");
         final = -1;
         return final;
     }
-    else
-    {
+    else{
         Nodol *aux1 = l -> inicio;
         Nodol *aux2 = l -> inicio -> next;
-        while(aux2 -> next != NULL)
-        {
+        while(aux2 -> next != NULL){
             aux1 = aux1 -> next;
             aux2 = aux2 -> next;
         }
@@ -188,22 +155,18 @@ int eliminar_final(Lista *l)
     }
 }
 
-int eliminar_pos(Lista *l, int pos)
-{
+int eliminar_pos(Lista *l, int pos){
     int posi;
     Nodol *aux1, *aux2;   
-    if(pos > l -> largo || isEmptyL(l) == 1)
-    {
+    if(pos > l -> largo || isEmptyL(l) == 1){
         printf("Posicion no valida");
         posi = -1;
         return posi;
     }
-    else
-    {
+    else{
         aux1 = l -> inicio;
         aux2 = l -> inicio -> next;
-        for(int i = 1; i < pos-1; i++)
-        {
+        for(int i = 1; i < pos; i++){
             aux1 = aux1 -> next;
             aux2 = aux2 -> next;
         }
@@ -213,4 +176,11 @@ int eliminar_pos(Lista *l, int pos)
         l -> largo -= 1;
     }
     return posi;
+}
+
+void imprimir_lista(Lista *l){
+    for(int j = 0; j < l -> largo; j++){
+        printf("%i ", valor_pos(l, j));
+        printf("\n");
+    }
 }
