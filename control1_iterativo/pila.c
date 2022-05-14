@@ -35,7 +35,6 @@ void push(Pila *p, int *valor)
 {
     Nodop *n;
     n = crear_nodoP(valor);
-    printf("%d, %d\n", n -> valor1, n -> valor2);
     if(isEmptyP(p) == 1)
     {
         p -> tope = n;

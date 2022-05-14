@@ -125,31 +125,28 @@ Lista *movimientos(char **matriz, int *pos)
     }
     else if(movimientos > 1)
     {
-        printf("comienzo\n");
         push(bifurca, pos);
-        printf("PUSHEO ENTRADA\n");
         sepa = tope(bifurca);
     }
     insertar_final(l, pos);
     while(movimientos >= 0)
     {
-        printf("(%d,%d)\n", pos_aux[0], pos_aux[1]);
         if(matriz[pos_aux[0]][pos_aux[1] + 1] == 'o')
         {
-            matriz[pos_aux[0]][pos[1] + 1] = 'x';
+            matriz[pos_aux[0]][pos_aux[1] + 1] = 'x';
             pos_aux[1] += 1;
             insertar_final(l, pos_aux);
         }
         else if(matriz[pos_aux[0] + 1][pos_aux[1]] == 'o')
         {
             matriz[pos_aux[0] + 1][pos_aux[1]] = 'x';
-            pos[0] += 1;
+            pos_aux[0] += 1;
             insertar_final(l, pos_aux);
         }
         else if(matriz[pos_aux[0]][pos_aux[1] - 1] == 'o')
         {
             matriz[pos_aux[0]][pos_aux[1] - 1] = 'x';
-            pos[1] -= 1;
+            pos_aux[1] -= 1;
             insertar_final(l, pos_aux);
         }
         else if(matriz[pos_aux[0] - 1][pos_aux[1]] == 'o')
@@ -158,57 +155,59 @@ Lista *movimientos(char **matriz, int *pos)
             pos_aux[0] -= 1;
             insertar_final(l, pos_aux);
         }
-        else if(isEmptyP(bifurca) == 1 || matriz[pos_aux[0]][pos_aux[1] + 1] == 's')
+        else if(matriz[pos_aux[0]][pos_aux[1] + 1] == 's')
         {
             return l;
         }
-        else if(isEmptyP(bifurca) == 1 || matriz[pos_aux[0] + 1][pos_aux[1]] == 's')
+        else if(matriz[pos_aux[0] + 1][pos_aux[1]] == 's')
         {
             return l;
         }
-        if(isEmptyP(bifurca) == 1 || matriz[pos_aux[0]][pos_aux[1] - 1] == 's')
+        else if(matriz[pos_aux[0]][pos_aux[1] - 1] == 's')
         {
             return l;
         }
-        else if(pos_aux[0] != 0)
+        else if(matriz[pos_aux[0] - 1][pos_aux[1]] == 's')
         {
-            if(isEmptyP(bifurca) == 1 || matriz[pos_aux[0] - 1][pos_aux[1]] == 's')
-            {
-                return l;
-            }
+            return l;
         }
-        // SECTOR MALO
-        // se deberia hacer pop a la bifurcacion si es que no se puede mover desde el ultimo punto
+        else if(isEmptyP(bifurca) == 1)
+        {
+            return l;
+        }
+        // printf("pos: %d, %d letra: %c\n", pos_aux[0], pos_aux[1], matriz[pos_aux[0]][pos_aux[1]]);
         mov_aux = verificar_mov(matriz, pos_aux);
-        movimientos = verificar_mov(matriz, pos_aux);
-        printf("movs: %d\n", mov_aux);
-        if(mov_aux >= 1 && movimientos == 0)
+        movimientos = verificar_mov(matriz, sepa);
+        if(mov_aux == 0 && movimientos > 0)
         {
-            printf("REGRESO\n");
-            pos[0] = pos_aux[0];
-            pos[1] = pos_aux[1];
+            // printf("REGRESO\n");
+            pos_aux[0] = sepa[0];
+            pos_aux[1] = sepa[1];
         }
-        else if(mov_aux == 0)
+        else if(movimientos == 0)
         {
-            printf("POPEO\n");
+            // printf("POPEO\n");
             bif = pop(bifurca);
+            sepa = tope(bifurca);
+            pos_aux = sepa;
+            // printf("bifurcacion: %d, %d\n", sepa[0], sepa[1]);
             aux = l -> inicio;
-            while(aux -> valor1 != bif[0] && aux -> valor2 != bif [1])
+            while(aux -> valor1 != bif[0] && aux -> valor2 != bif[1])
             {
+                printf("Lista %d: %d, %d Largo: %d\n", cont, aux -> valor1, aux ->valor2, l -> largo);
                 aux = aux -> next;
                 cont += 1;
             }
-            while(aux -> next != NULL)
-            {
-                eliminar_pos(l, cont);
-            }
+            // while(aux -> next != NULL)
+            // {
+            //     eliminar_pos(l, cont);
+            // }
+            cont = 1;
         }
-        else if(mov_aux > 1)
+        if(mov_aux > 1)
         {
-            printf("PUSHEO\n");
             push(bifurca, pos_aux);
-            sepa[0] = pos_aux[0];
-            sepa[1] = pos_aux[1];
+            sepa = tope(bifurca);
         }
     }
 }

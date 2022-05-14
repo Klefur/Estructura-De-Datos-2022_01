@@ -15,9 +15,14 @@ grafo *crear_grafo(int n){
 }
 
 void insertar_arista(grafo *g, int ar1, int ar2){
-    insertar_final(g -> v[ar1], ar2);
-    insertar_final(g -> v[ar2], ar1);
-    g -> aristas += 2;
+    if(existe_arista(g, ar1, ar2) == 0){
+        insertar_final(g -> v[ar1], ar2);
+        insertar_final(g -> v[ar2], ar1);
+        g -> aristas += 2;
+    }
+    else{
+        printf("arista ya agregada\n");
+    }
 }
 
 void mostrar_grafo(grafo *g){
@@ -68,8 +73,8 @@ int existe_arista(grafo *g, int ar1, int ar2){
 }
 
 int **obtener_aristas(grafo *g){
-    int **aristas = malloc(sizeof(int**) * (g -> aristas / 2));
-    for(int i = 0; i < g -> aristas / 2; i++){
+    int **aristas = malloc(sizeof(int**) * g -> aristas);
+    for(int i = 0; i < g -> aristas; i++){
         aristas[i] = malloc(sizeof(int*) * 2);
         aristas[i][0] = -1;
         aristas[i][1] = -1;
@@ -79,11 +84,9 @@ int **obtener_aristas(grafo *g){
     for(int i = 0; i < g -> vertices; i++){
         if(g -> v[i] -> largo != 0){
             for(int j = 0; j < g -> v[i] -> largo; j++){
-                if(valor_pos(g -> v[i], j) > i){
-                    aristas[x][0] = i;       
-                    aristas[x][1] = valor_pos(g -> v[i], j);
-                    ++x;  
-                }
+                aristas[x][0] = i;       
+                aristas[x][1] = valor_pos(g -> v[i], j);
+                ++x;  
             }
         }       
     }
@@ -112,7 +115,7 @@ Lista *obtener_adyacentes_vertice(grafo *g, int vertice){
 
 void imprimir_aristas(grafo *g, int **aristas){
     printf("Aristas: ");
-    for(int j = 0; j < g -> aristas / 2; j++){
+    for(int j = 0; j < g -> aristas; j++){
         printf("(%i, %i) ", aristas[j][0], aristas[j][1]);
     }
     printf("\n");
