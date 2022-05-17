@@ -111,7 +111,7 @@ int valor_pos(Lista *l, int pos){
     }
     else{
         aux = l -> inicio;
-        for(int i = 1; i <= pos; i++){
+        for(int i = 0; i < pos; i++){
             aux = aux -> next;
         }
         posi = aux -> valor;    
@@ -130,6 +130,7 @@ int eliminar_inicio(Lista *l){
         Nodol *aux = l -> inicio;
         l -> inicio = aux -> next;
         inicio = aux -> valor;
+        l -> largo--;
         free(aux);
         return inicio;
     }
@@ -150,6 +151,7 @@ int eliminar_final(Lista *l){
             aux2 = aux2 -> next;
         }
         final = aux2 -> valor;
+        l -> largo--;
         free(aux2);
         return final;
     }
@@ -163,6 +165,9 @@ int eliminar_pos(Lista *l, int pos){
         posi = -1;
         return posi;
     }
+    else if(pos == 0){
+        posi = eliminar_inicio(l);
+    }
     else{
         aux1 = l -> inicio;
         aux2 = l -> inicio -> next;
@@ -173,7 +178,7 @@ int eliminar_pos(Lista *l, int pos){
         aux1 -> next = aux2 -> next;
         posi = aux2 -> valor;
         free(aux2);
-        l -> largo -= 1;
+        l -> largo--;
     }
     return posi;
 }
