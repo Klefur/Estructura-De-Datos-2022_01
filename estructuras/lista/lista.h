@@ -1,0 +1,21 @@
+typedef struct nodol
+{
+    int valor;
+    struct nodol *next;
+}Nodol;
+
+typedef struct lista
+{
+    Nodol *inicio;
+    int largo;
+}Lista;
+
+Nodol *crear_nodo(int valor);
+Lista *crear_lista();
+int isEmpty(Lista *l);
+void insertar_inicio(Lista *l, int valor);
+void insertar_final(Lista *l, int valor);
+void insertar_pos(Lista *l, int pos, int valor);
+int valor_inicial(Lista *l);
+int valor_final(Lista *l);
+int valor_pos(Lista *l, int pos);
