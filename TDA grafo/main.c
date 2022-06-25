@@ -19,18 +19,18 @@ int main(){
     mostrar_grafo(g);
     remover_arista(g, 1, 2);
     mostrar_grafo(g);
-    
+
     l2 = obtener_adyacentes_vertice(g, 0);
     imprimir_vertices(l2, 0);
-    
+
     printf("Existe la arista (%i, %i)?: %i\n", 3, 2, existe_arista(g, 3, 2));
-    
+
     aristas = obtener_aristas(g);
     imprimir_aristas(g, aristas);
-    
+
     printf("El grafo es %i regular?: %i\n", 2, k_regular(g, 2));
     printf("El grafo es %i regular?: %i\n", 3, k_regular(g, 3));
-    
+
     grados = grado_vertices(g);
     printf("Grado de los vertices:\n");    
     for(int i = 0; i < g -> vertices; ++i){
@@ -43,13 +43,13 @@ int main(){
 
     grafo_tour = tour(g, arr, 3);
     printf("El arreglo {%i, %i, %i} es tour?: %i\n", 0, 1, 2, grafo_tour);
-    
+
     grafo_clique = clique(g, arr, 3);
     printf("El arreglo {%i, %i, %i} es clique?: %i\n", 0, 1, 2, grafo_clique);
-    
+
     simple = grafo_simple(g);
     printf("El grafo es simple?: %i\n", simple);
-    
+
     complemento(g);
 
     return 0;
