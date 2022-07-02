@@ -2,71 +2,169 @@
 #include <stdlib.h>
 #include "abo.h"
 
-nodo *crearNodo()
+arbol *crearArbol()
 {
-    nodo *n = malloc(sizeof(nodo *));
-    n->der = NULL;
-    n->val = NULL;
+    arbol *a = malloc(sizeof(arbol));
+    a->raiz = NULL;
+
+    return a;
+}
+
+nodo *crearNodo(char val)
+{
+    nodo *n = malloc(sizeof(nodo));
+    n->val = crearInfo(val);
     n->izq = NULL;
+    n->der = NULL;
 
     return n;
 }
 
-info *crearInfo(int val)
+info *crearInfo(char val)
 {
-    info *pval = malloc(sizeof(info *));
-    pval->pval = val;
+    info *Info = malloc(sizeof(info *));
+    Info->dato = val;
 
-    return pval;
+    return Info;
 }
 
-void insertar(nodo *n, int val)
+void insertar(nodo *n, char padre, char val)
 {
-    if(n == NULL)
+    nodo *pad = buscarNodo(n, padre);
+    if (pad == NULL)
+        printf("No existe\n");
+    else
     {
-        n = crearNodo();
+        if (pad->izq == NULL)
+            pad->izq = crearNodo(val);
+        else if (pad->der == NULL)
+            pad->der = crearNodo(val);
+        else
+            printf("Los 2 nodos ya existen\n");
     }
-    if(n->val = NULL){
-        n->val = crearInfo(val);
-    }
-    else{
-        if(n->val->pval > val){
-            insertar(n->izq, val);
+}
+
+nodo *buscarNodo(nodo *n, char val)
+{
+    if (n->val->dato == val)
+        return n;
+    else
+    {
+        nodo *aux = NULL;
+        if (n->izq != NULL)
+        {
+            aux = buscarNodo(n->izq, val);
         }
-        else{
-            insertar(n->der, val);
+        if (aux != NULL && aux->val->dato == val)
+        {
+            return aux;
         }
+        else
+        {
+            if (n->der != NULL)
+            {
+                aux = buscarNodo(n->der, val);
+                if (aux != NULL && aux->val->dato == val)
+                {
+                    return aux;
+                }
+            }
+        }
+
+        return aux;
     }
 }
 
-nodo buscarNodo(nodo *n, int val)
+void preOrden(nodo *n)
+{
+    if (n != NULL)
+    {
+        printf("%c", n->val->dato);
+        preOrden(n->izq);
+        preOrden(n->der);
+    }
+}
+
+void inOrden(nodo *n)
+{
+    if (n != NULL)
+    {
+        inOrden(n->izq);
+        printf("%c", n->val->dato);
+        inOrden(n->der);
+    }
+}
+
+void postOrden(nodo *n)
+{
+    if (n != NULL)
+    {
+        postOrden(n->izq);
+        postOrden(n->der);
+        printf("%c", n->val->dato);
+    }
+}
+
+nodo *padre(nodo *n, char val)
+{
+    if ((n->der != NULL && n->der->val->dato == val) || (n->izq != NULL && n->izq->val->dato == val))
+        return n;
+    else
+    {
+        nodo *aux = NULL;
+        if (n->izq != NULL)
+        {
+            aux = buscarNodo(n->izq, val);
+        }
+        if (aux != NULL && aux->val->dato == val)
+        {
+            return aux;
+        }
+        else
+        {
+            if (n->der != NULL)
+            {
+                aux = buscarNodo(n->der, val);
+                if (aux != NULL && aux->val->dato == val)
+                {
+                    return aux;
+                }
+            }
+        }
+
+        return aux;
+    }
+}
+
+int profundidadNodo(nodo *n, char val)
 {
 }
 
-void inorder(nodo *n)
+int alturaNodo(nodo *n, char val)
 {
 }
 
-void preorder(nodo *n)
+int nivelNodo(nodo *n, char val)
 {
 }
 
-void postorder(nodo *n)
+int contarNodos(nodo *n)
+{
+    int contar = 0;
+    if (n != NULL)
+        contar = 1 + contarNodos(n->der) + contarNodos(n->izq);
+
+    return contar;
+}
+
+int contarHojas(nodo *n)
 {
 }
 
-nodo *buscarMaxEnMin(nodo *n)
+int sonSimilares(nodo *n1, nodo *n2)
 {
 }
 
-nodo *buscarMinEnMax(nodo *n)
-{
-}
-
-nodo *eliminar(nodo *n, int val)
-{
-}
-
-nodo *eliminarArbol(nodo *n)
+int esCompleto(nodo *n)
 {
 }
