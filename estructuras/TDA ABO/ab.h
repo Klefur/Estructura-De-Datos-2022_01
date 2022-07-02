@@ -6,8 +6,8 @@ typedef struct info
 typedef struct nodo
 {
     info *val;
-    struct nodo *der;
     struct nodo *izq;
+    struct nodo *der;
 } nodo;
 
 typedef struct arbol
@@ -24,6 +24,8 @@ void inOrder(nodo *n);
 void preOrder(nodo *n);
 void postOrder(nodo *n);
 nodo *padre(nodo *n, char val);
+void obtenerNiveles(nodo *n, int **lista, int nivel, int *index, int largo);
+void ordenarLista(int **lista, int largo);
 int profundidadNodo(nodo *n, char val);
 int alturaNodo(nodo *n, char val);
 int nivelNodo(nodo *n, char val);
