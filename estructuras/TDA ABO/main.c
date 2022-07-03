@@ -17,7 +17,6 @@ int main()
     insertar(a->raiz, 'B', 'E');
     insertar(a->raiz, 'C', 'F');
     insertar(a->raiz, 'C', 'G');
-    insertar(a->raiz, 'E', 'H');
     preOrden(a->raiz);
     nextLine();
     inOrden(a->raiz);
