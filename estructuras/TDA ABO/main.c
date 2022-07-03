@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "abo.h"
+#include "ab.h"
 
 void nextLine()
 {
@@ -29,6 +29,7 @@ int main()
     printf("Profundidad: %i\n", profundidadNodo(a->raiz, 'H'));
     printf("Altura: %i\n", alturaNodo(a->raiz, 'A'));
     printf("padre: %c\n", padre(a->raiz, 'F')->val->dato);
+    printf("es completo: %i\n", esCompleto(a->raiz));
 
     return 0;
 }

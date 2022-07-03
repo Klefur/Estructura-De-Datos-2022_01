@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "abo.h"
+#include "ab.h"
 
 arbol *crearArbol()
 {
@@ -123,7 +123,8 @@ nodo *padre(nodo *n, char val)
             {
                 aux = padre(n->izq, val);
             }
-            if(aux != NULL){
+            if (aux != NULL)
+            {
                 if ((aux->der != NULL && aux->der->val->dato == val) || (aux->izq != NULL && aux->izq->val->dato == val))
                 {
                     return aux;
@@ -220,7 +221,7 @@ int alturaNodo(nodo *n, char val)
     obtenerNiveles(aux, listado, 0, &index, largo);
     ordenarLista(listado, largo);
 
-    return listado[largo-1][1];
+    return listado[largo - 1][1];
 }
 
 int nivelNodo(nodo *n, char val)
@@ -288,8 +289,14 @@ int esCompleto(nodo *n)
 
     obtenerNiveles(n, listado, 0, &index, largo);
     ordenarLista(listado, largo);
+    int cantidad = 2;
 
-    for (int i = 0; i < listado[largo - 1][1]; ++i)
+    for (int i = 1; i < listado[largo - 1][1]; ++i)
     {
+        cantidad += 2 * cantidad;
     }
+    ++cantidad;
+    if (cantidad == largo)
+        return 1;
+    return 0;
 }
