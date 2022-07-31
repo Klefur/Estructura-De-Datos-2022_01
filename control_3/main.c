@@ -23,6 +23,9 @@ donde x es el numero de parametros el cual sera siempre 4
 nombre el nombre del archivo con la extension .txt
 opción 1 o 2 para indicar si quiere ejecutar el problema 1
 de las estadisticas o el problema 2 del arbol de cobertura
+
+4.- Para utilizar debe cambiar los nombres de los TDA a solo lista y
+grafo para que no mande error de que no existen los datos
 */
 
 // funcion que abre el archivo y verifica si fue abierto corretamente
@@ -218,6 +221,34 @@ void MST(grafo *g)
     }
 
     fprintf(fp, "%i", count);
+}
+
+void MST2(grafo *g)
+{
+    int *vertices = malloc(sizeof(int *) * g->v);
+    for (int i = 0; i < g->v; ++i)
+    {
+        vertices[i] = -1;
+    }
+    vertices[0] = 0;
+
+    lista *lista[g->v];
+    int index = 1;
+    int min;
+
+    for(int i = 0; g->v; ++i)
+    {
+        for(int j = 0; j < index; ++j)
+        {
+            lista[j] = obtener_adyacentes_vertice(g, vertices[i]);
+        }
+        for(int j = 0; j < index; ++j)
+        {
+            for(int j = 0; j < index; ++j)
+            {
+            }
+        }
+    }
 }
 
 int main(int argc, char *argv[])
